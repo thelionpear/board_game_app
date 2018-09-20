@@ -10,10 +10,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_19_182352) do
+ActiveRecord::Schema.define(version: 2018_09_20_204816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "board_games", force: :cascade do |t|
+    t.string "title"
+    t.integer "min_players"
+    t.integer "max_players"
+    t.integer "time_needed"
+    t.string "company"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "base_game"
+  end
+
+  create_table "creators", force: :cascade do |t|
+    t.bigint "board_game_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "social_media"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_game_id"], name: "index_creators_on_board_game_id"
+  end
+
+  create_table "game_sessions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "players"
+    t.string "session_date"
+    t.string "board_games"
+    t.string "rounds"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_game_sessions_on_user_id"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "game_sessions"
+    t.string "games_won"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rounds", force: :cascade do |t|
+    t.string "board_game"
+    t.string "players"
+    t.string "winner"
+    t.bigint "game_session_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_session_id"], name: "index_rounds_on_game_session_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -45,4 +96,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_182352) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "creators", "board_games"
+  add_foreign_key "game_sessions", "users"
+  add_foreign_key "rounds", "game_sessions"
 end
