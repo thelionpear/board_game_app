@@ -1,0 +1,2 @@
+class GameSessionPlayer < ApplicationRecord
+end

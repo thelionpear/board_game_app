@@ -1,0 +1,2 @@
+class BoardGameSessionRound < ApplicationRecord
+end

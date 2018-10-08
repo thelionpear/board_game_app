@@ -1,0 +1,2 @@
+class CreatorBoardGame < ApplicationRecord
+end
