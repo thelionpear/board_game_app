@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2018_09_20_204816) do
     t.bigint "user_id"
     t.string "players"
     t.string "session_date"
+    #remove the below and put on through table? 
     t.string "board_games"
     t.string "rounds"
     t.datetime "created_at", null: false

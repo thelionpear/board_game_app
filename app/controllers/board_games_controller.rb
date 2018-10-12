@@ -7,7 +7,7 @@ class BoardGamesController < ApplicationController
     render json: @board_games
   end
 
-  def new
+  def create
     board_game = Board_Game.new 
     if board_game.save
       render json: board_game 
