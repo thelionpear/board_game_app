@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2018_09_20_204816) do
 
   create_table "game_sessions", force: :cascade do |t|
     t.bigint "user_id"
+    #players on through table
     t.string "players"
     t.string "session_date"
     #remove the below and put on through table? 

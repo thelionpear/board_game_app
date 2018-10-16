@@ -45,7 +45,11 @@ class GameSessionsController < ApplicationController
 
   def game_session_params
     params.require(:game_session).permit(
-      
+    :user_id; 
+    :session_date; 
+    :players; 
+    :board_games; 
+    :rounds; 
     )
   end 
 
