@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Header } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+
 
 class Home extends Component {
   
@@ -36,8 +38,9 @@ class Home extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return { user: state.user };
-// };
+const mapStateToProps = state => {
+  return { user: state.user };
+};
 
-export default Home;
+export default connect(mapStateToProps)(Home);
+
