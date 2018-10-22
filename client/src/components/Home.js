@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import { Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
+import Games from './Games';
 
 class Home extends Component {
   
   homePage = () => {
-    debugger 
     const { user } = this.props;
     if (user.id) {
       return (
         <div>
-          <div>Games</div>
+          <Link 
+          to= "/games" 
+          component={Games} 
+          >
+          Games
+          </Link>
           <div>Sessions</div> 
           <div>Friends</div>
           <div>Tools</div> 

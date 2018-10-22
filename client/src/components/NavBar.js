@@ -11,6 +11,9 @@ class NavBar extends Component {
     if (user.id) {
       return (
         <Menu.Menu position='right'>
+          <Menu.Item 
+            name="NotificationsGoHere"
+          />
           <Menu.Item
             name='Logout'
             onClick={() => dispatch(handleLogout(history))}
@@ -29,11 +32,14 @@ class NavBar extends Component {
       </Menu.Menu>
     );
   }
-
+  
   render() {
     return (
       <div>
         <Menu pointing secondary>
+          <Menu.Item 
+            name="LogoGoesHere" 
+          /> 
           <Link to='/'>
             <Menu.Item name='home' />
           </Link>
