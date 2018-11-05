@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Games from './Games';
 
 class Home extends Component {
@@ -11,18 +11,13 @@ class Home extends Component {
     if (user.id) {
       return (
         <div>
-          <Link 
-          to= "/games" 
-          component={Games} 
-          >
-          Games
-          </Link>
-          <div>Sessions</div> 
-          <div>Friends</div>
-          <div>Tools</div> 
-          <div>Help</div>
-          <div>Settings</div>
-          <div>Profile</div>
+          <NavLink to="/Games">Games</NavLink>
+          <NavLink to="/Sessions">Sessions</NavLink> 
+          <NavLink to="/Friends">Friends</NavLink>
+          <NavLink to="/Tools">Tools</NavLink> 
+          <NavLink to="/Help">Help</NavLink>
+          <NavLink to="/Settings">Settings</NavLink>
+          <NavLink to="/Profile">Profile</NavLink>
         </div>
       );
     }
