@@ -17,6 +17,10 @@ import Settings from './Settings';
 import Tools from './Tools'; 
 import Sessions from './Sessions'; 
 
+//AuthRoute is only for making it so the user can't hit the login or register components when logged in
+//use Protected route for pages you want the user to be logged in before viewing
+
+
 class App extends Component {
   render() {
     return (
@@ -28,13 +32,13 @@ class App extends Component {
             <Route exact path='/' component={Home} />
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />
-            <Route exact path='/Friends' component={Friends} /> 
-            <Route exact path='/Games' component={Games} />
-            <Route exact path='/Help' component={Help} /> 
-            <Route exact path='/Settings' component={Settings} />
-            <Route exact path='/Tools' component={Tools} />
-            <Route exact path='/Sessions' component={Sessions} />
-            <Route exact path='/Profile' component={Profile} />
+            <ProtectedRoute exact path='/Friends' component={Friends} /> 
+            <ProtectedRoute exact path='/Games' component={Games} />
+            <ProtectedRoute exact path='/Help' component={Help} /> 
+            <ProtectedRoute exact path='/Settings' component={Settings} />
+            <ProtectedRoute exact path='/Tools' component={Tools} />
+            <ProtectedRoute exact path='/Sessions' component={Sessions} />
+            <ProtectedRoute exact path='/Profile' component={Profile} />
             <Route component={NoMatch} />
           </Switch>
         </FetchUser>
