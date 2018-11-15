@@ -28,13 +28,13 @@ class App extends Component {
             <Route exact path='/' component={Home} />
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />
-            <AuthRoute exact path='/Friends' component={Friends} /> 
-            <AuthRoute exact path='/Games' component={Games} />
-            <AuthRoute exact path='/Help' component={Help} /> 
-            <AuthRoute exact path='/Settings' component={Settings} />
-            <AuthRoute exact path='/Tools' component={Tools} />
-            <AuthRoute exact path='/Sessions' component={Sessions} />
-            <AuthRoute exact path='/Profile' component={Profile} />
+            <Route exact path='/Friends' component={Friends} /> 
+            <Route exact path='/Games' component={Games} />
+            <Route exact path='/Help' component={Help} /> 
+            <Route exact path='/Settings' component={Settings} />
+            <Route exact path='/Tools' component={Tools} />
+            <Route exact path='/Sessions' component={Sessions} />
+            <Route exact path='/Profile' component={Profile} />
             <Route component={NoMatch} />
           </Switch>
         </FetchUser>
