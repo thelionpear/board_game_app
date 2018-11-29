@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
 import axios from 'axios'; 
 
 //needs to do a call to the API to get the user's games from the user_board_game table 
@@ -14,24 +13,36 @@ import axios from 'axios';
 class Games extends Component {
 
   state = { games:[] }
-
-  ComponentDidMount() {
+//wasn't hitting debugger in componentDidMount because I had Component capitalized. 
+//then I was getting a 500 from my server because I didn't have resources :board_games in my routes.rb
+//now getting 404
+//this error "ActionController::RoutingError (uninitialized constant Api)" in server 
+//created an api folder in my controllers folder and moved my proprietery controllers inside it
+//new error: app/controllers/api/board_games_controller.rb:15: 
+//syntax error, unexpected tINTEGER, expecting keyword_end
+//got rid of 422 on line 15 
+//new error: LoadError (Unable to autoload constant 
+//Api::BoardGamesController, expected 
+///Users/michellegarcia/coding_personal_projects/board_game_app/app/controllers/api/board_games_controller.rb
+// to define it):
+// my has_many :blank didn't have colons in board_game.rb 
+  componentDidMount() {
 //runs when the user wants to add a game from the database
-//link to more info and button to add the game if it's not in their library already
-    axios.get(`api/games`)
+//link to more info and button to add the game if it's not in their library already 
+    axios.get('/api/board_games')
       .then(res => {
-        const games = res.data;
-        console.log(res.data); 
-        this.setState({games});
+        // const games = res.data;
+        console.log(res); 
+        // this.setState({games});
       })
   }
 
-  Get_User_Games = () => {
+  getUserGames = () => {
 //runs when component mounts and then goes to the Games_List Function
 //checks if the user has games user.games? return { the list} : return {<h1>You have no games</h1>}
   }
 
-  Games_List = () => {
+  gamesList = () => {
 //gives each game with a link to more info  
   }
 
@@ -46,8 +57,4 @@ class Games extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { user: state.user };
-};
-
-export default connect(mapStateToProps)(Games);
+export default Games;

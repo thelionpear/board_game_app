@@ -1,6 +1,7 @@
-class BoardGamesController < ApplicationController
+class Api::BoardGamesController < ApplicationController
+
   def index
-    render json: Board_Game.all
+    render json: BoardGame.all
   end
 
   def show
@@ -8,11 +9,11 @@ class BoardGamesController < ApplicationController
   end
 
   def create
-    board_game = Board_Game.new 
+    board_game = BoardGame.new 
     if board_game.save
       render json: board_game 
     else
-      render json: board_game.errors 422
+      render json: board_game.errors
     end 
   end
 
@@ -30,9 +31,9 @@ class BoardGamesController < ApplicationController
 
   private 
 
-  def set_board_game 
-    @board_game = Board_Game.find(params[:id])
-  end 
+  # def set_board_game 
+  #   @board_game = Board_Game.find(params[:id])
+  # end 
 
   def board_game_params
     params.require(:board_game).permit(
