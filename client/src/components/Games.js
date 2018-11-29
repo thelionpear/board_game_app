@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'; 
+import { Button, Card } from 'semantic-ui-react'
+
 
 //needs to do a call to the API to get the user's games from the user_board_game table 
 //if the user has no games, it needs to default to "You have no games. Add games to your library by clicking
@@ -12,7 +14,7 @@ import axios from 'axios';
 
 class Games extends Component {
 
-  state = { games:[] }
+  state = { games:[], showGames: false }
 //wasn't hitting debugger in componentDidMount because I had Component capitalized. 
 //then I was getting a 500 from my server because I didn't have resources :board_games in my routes.rb
 //now getting 404
@@ -26,15 +28,18 @@ class Games extends Component {
 ///Users/michellegarcia/coding_personal_projects/board_game_app/app/controllers/api/board_games_controller.rb
 // to define it):
 // my has_many :blank didn't have colons in board_game.rb 
+//ultimately I had my board_games.js with underscores instead of camelCase 
   componentDidMount() {
 //runs when the user wants to add a game from the database
 //link to more info and button to add the game if it's not in their library already 
     axios.get('/api/board_games')
       .then(res => {
-        // const games = res.data;
-        console.log(res); 
-        // this.setState({games});
+        this.setState({games: res.data});
       })
+  }
+
+  toggleGames = () => {
+    this.setState({ showGames: !this.state.showGames })
   }
 
   getUserGames = () => {
@@ -43,15 +48,36 @@ class Games extends Component {
   }
 
   gamesList = () => {
-//gives each game with a link to more info  
+//gives each game with a link to more info
+    const {games} = this.state 
+    return games.map( game =>
+      <Card key={game.id}>
+        <Card.Content>
+          <Card.Header>{game.title}</Card.Header>
+          <Card.Description>Players: {game.min_players} - {game.max_players}</Card.Description>
+          <Card.Description>Company: {game.company}</Card.Description>
+          <Card.Description>Time Needed: {game.time_needed}</Card.Description>
+        </Card.Content>
+        <Card.Content extra>
+            <Button basic color='green'>
+              Add to Library
+            </Button>
+        </Card.Content>
+      </Card> 
+      )
   }
 
   render() {
+    const showGames = this.state 
     return (
       <div>
         <h1>Games</h1>
-        <button>Add a Game</button> 
         <h3>Your Games</h3> 
+        {showGames ? 
+          <div>{this.gamesList()}</div> 
+          :
+          <button onClick={this.toggleGames()}>Add a Game</button> 
+        }
       </div>
     )
   }
