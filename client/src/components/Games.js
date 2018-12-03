@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'; 
-import { Button, Card } from 'semantic-ui-react'
+import { Button, Card, Container } from 'semantic-ui-react'
 
 
 //needs to do a call to the API to get the user's games from the user_board_game table 
@@ -47,38 +47,50 @@ class Games extends Component {
 //checks if the user has games user.games? return { the list} : return {<h1>You have no games</h1>}
   }
 
+  addGame = (userId, boardGameId) => {
+    axios.post('api/user_board_games', { userId, boardGameId })
+      .then(res => {
+        console.log(res);
+      })
+  }
+
   gamesList = () => {
 //gives each game with a link to more info
-    const {games} = this.state 
+    const { games } = this.state 
     return games.map( game =>
-      <Card key={game.id}>
-        <Card.Content>
-          <Card.Header>{game.title}</Card.Header>
-          <Card.Description>Players: {game.min_players} - {game.max_players}</Card.Description>
-          <Card.Description>Company: {game.company}</Card.Description>
-          <Card.Description>Time Needed: {game.time_needed}</Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-            <Button basic color='green'>
-              Add to Library
-            </Button>
-        </Card.Content>
-      </Card> 
+        <Card key={game.id}>
+          <Card.Content>
+            <Card.Header>{game.title}</Card.Header>
+            <Card.Description>Players: {game.min_players} - {game.max_players}</Card.Description>
+            <Card.Description>Company: {game.company}</Card.Description>
+            <Card.Description>Time Needed: {game.time_needed}</Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+              <Button basic color='green' onClick={this.addGame}>
+                Add to Library
+              </Button>
+          </Card.Content>
+        </Card> 
       )
   }
 
   render() {
-    const showGames = this.state 
+    const { showGames } = this.state 
     return (
-      <div>
+      <Container>
         <h1>Games</h1>
         <h3>Your Games</h3> 
-        {showGames ? 
-          <div>{this.gamesList()}</div> 
-          :
-          <button onClick={this.toggleGames()}>Add a Game</button> 
+        { showGames ? (
+            <div>
+              <Button basic onClick={this.toggleGames}>Done Adding</Button>
+              <Card.Group itemsPerRow={4}>{this.gamesList()}</Card.Group> 
+            </div>
+        )
+          : (
+          <Button basic onClick={this.toggleGames}>Add a Game</Button>
+        ) 
         }
-      </div>
+      </Container>
     )
   }
 }

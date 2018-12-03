@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   namespace :api do
     resources :board_games do 
       resources :game_sessions 
+      resources :users 
+    end 
+    resources :users do 
+      resources :board_games 
     end 
     #API ROUTES SHOULD GO HERE
   end
