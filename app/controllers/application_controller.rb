@@ -7,5 +7,6 @@ class ApplicationController < ActionController::API
 			Rails.logger.error(NameError.message)
 			nil
 		end
-  }
+	}
+
 end

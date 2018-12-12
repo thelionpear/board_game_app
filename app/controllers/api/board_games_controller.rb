@@ -1,15 +1,17 @@
 class Api::BoardGamesController < ApplicationController
+  before_action :set_board_game, except: [:index]
+
 
   def index
     render json: BoardGame.all
   end
 
   def show
-    render json: @board_games
+    render json: @board_game
   end
 
   def create
-    board_game = BoardGame.new 
+    board_game = BoardGame.new(board_game_params)
     if board_game.save
       render json: board_game 
     else
@@ -31,9 +33,9 @@ class Api::BoardGamesController < ApplicationController
 
   private 
 
-  # def set_board_game 
-  #   @board_game = Board_Game.find(params[:id])
-  # end 
+  def set_board_game 
+    @board_game = BoardGame.find(params[:id])
+  end 
 
   def board_game_params
     params.require(:board_game).permit(

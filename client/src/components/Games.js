@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'; 
+import { connect } from 'react-redux';
 import { Button, Card, Container } from 'semantic-ui-react'
 
 
@@ -14,7 +15,7 @@ import { Button, Card, Container } from 'semantic-ui-react'
 
 class Games extends Component {
 
-  state = { games:[], showGames: false }
+  state = { games:[], user_games: [], showGames: false }
 //wasn't hitting debugger in componentDidMount because I had Component capitalized. 
 //then I was getting a 500 from my server because I didn't have resources :board_games in my routes.rb
 //now getting 404
@@ -32,31 +33,62 @@ class Games extends Component {
   componentDidMount() {
 //runs when the user wants to add a game from the database
 //link to more info and button to add the game if it's not in their library already 
+    const userId = this.props.user.id 
     axios.get('/api/board_games')
       .then(res => {
+        console.log(res.data)
         this.setState({games: res.data});
       })
+    axios.get(`/api/users/${userId}/board_games`)
+      .then(res => {
+        console.log(res.data); 
+        this.setState({user_games: res.data});
+      } )
+      
   }
 
   toggleGames = () => {
     this.setState({ showGames: !this.state.showGames })
   }
 
-  getUserGames = () => {
-//runs when component mounts and then goes to the Games_List Function
-//checks if the user has games user.games? return { the list} : return {<h1>You have no games</h1>}
-  }
-
-  addGame = (userId, boardGameId) => {
-    axios.post('api/user_board_games', { userId, boardGameId })
+  removeGame = (id) => {
+    const userId = this.props.user.id 
+    axios.delete(`/api/users/${userId}/board_games/${id}`)
       .then(res => {
         console.log(res);
       })
   }
 
+  addGame = (id) => {
+    const userId = this.props.user.id 
+    axios.post(`api/users/${userId}/board_games`, { userId, id })
+      .then(res => {
+        console.log(res);
+      })
+  }
+
+  userLibrary = () => {
+    const {user_games} = this.state 
+    return user_games.map( game => 
+      <Card key={game.id}>
+        <Card.Content>
+          <Card.Header>{game.title}</Card.Header>
+          <Card.Description>Players: {game.min_players} - {game.max_players}</Card.Description>
+          <Card.Description>Company: {game.company}</Card.Description>
+          <Card.Description>Time Needed: {game.time_needed}</Card.Description>
+        </Card.Content>
+        <Card.Content extra> 
+              <Button basic color='red' onClick={() => this.removeGame(game.id)}>
+                Remove from Library
+              </Button>
+          </Card.Content>
+      </Card> 
+    )
+  }
+
   gamesList = () => {
 //gives each game with a link to more info
-    const { games } = this.state 
+    const { games, user_games } = this.state 
     return games.map( game =>
         <Card key={game.id}>
           <Card.Content>
@@ -65,11 +97,21 @@ class Games extends Component {
             <Card.Description>Company: {game.company}</Card.Description>
             <Card.Description>Time Needed: {game.time_needed}</Card.Description>
           </Card.Content>
+          { user_games.include ? (
           <Card.Content extra>
-              <Button basic color='green' onClick={this.addGame}>
+              <Button basic color='green' onClick={() => this.addGame(game.id)}>
                 Add to Library
               </Button>
           </Card.Content>
+          ) 
+            : (
+          <Card.Content extra> 
+              <Button basic color='red' onClick={() => this.removeGame(game.id)}>
+                Remove from Library
+              </Button>
+          </Card.Content>
+          )  
+          }
         </Card> 
       )
   }
@@ -80,6 +122,7 @@ class Games extends Component {
       <Container>
         <h1>Games</h1>
         <h3>Your Games</h3> 
+        <Card.Group itemsPerRow={4}>{this.userLibrary()}</Card.Group>
         { showGames ? (
             <div>
               <Button basic onClick={this.toggleGames}>Done Adding</Button>
@@ -95,4 +138,8 @@ class Games extends Component {
   }
 }
 
-export default Games;
+const mapStateToProps = state => {
+  return { user: state.user };
+};
+
+export default connect(mapStateToProps)(Games);
