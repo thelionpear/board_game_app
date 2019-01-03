@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'; 
 import { connect } from 'react-redux';
-import { Button, Card, Container } from 'semantic-ui-react'
+import { Button, Card, Container, Dropdown, Grid } from 'semantic-ui-react'
 
 
 //needs to do a call to the API to get the user's games from the user_board_game table 
@@ -15,7 +15,7 @@ import { Button, Card, Container } from 'semantic-ui-react'
 
 class Games extends Component {
 
-  state = { games:[], user_games: [], showGames: false }
+  state = { games:[], user_games: [], showGames: false, sort: "A-Z" }
 //wasn't hitting debugger in componentDidMount because I had Component capitalized. 
 //then I was getting a 500 from my server because I didn't have resources :board_games in my routes.rb
 //now getting 404
@@ -67,8 +67,46 @@ class Games extends Component {
       })
   }
 
+  dropDownMenu = () => {
+    return  ( <Dropdown text='Sort'>
+              <Dropdown.Menu>
+                <Dropdown.Item text='A-Z' onClick={() => this.setState({sort: "A-Z"}) }/>
+                <Dropdown.Item text='Z-A' onClick={() => this.setState({sort: "Z-A"})} />
+                <Dropdown.Item text='Time Needed' onClick={() =>this.setState({sort: "Time Needed"})}  />
+              </Dropdown.Menu>
+            </Dropdown>
+    )
+  }
+
   userLibrary = () => {
-    const {user_games} = this.state 
+    const {user_games, sort} = this.state 
+    switch(sort) {
+      case 'A-Z':
+        user_games.sort(function(game1, game2){
+          if(game1.title < game2.title) {return -1; }
+          if(game1.title > game2.title) {return 1; }
+          return 0; 
+        }); 
+        break; 
+      case 'Z-A':
+      user_games.sort(function(game1, game2){
+        if(game1.title > game2.title) {return -1; }
+        if(game1.title < game2.title) {return 1; }
+        return 0; 
+      }); 
+        break; 
+      case 'Time Needed': 
+        user_games.sort(function(game1,game2){
+          return game1.time_needed-game2.time_needed 
+        }) 
+        break; 
+      default: 
+      user_games.sort(function(game1, game2){
+        if(game1.title < game2.title) {return -1; }
+        if(game1.title > game2.title) {return 1; }
+        return 0; 
+      }); 
+    }
     return user_games.map( game => 
       <Card key={game.id}>
         <Card.Content>
@@ -121,7 +159,14 @@ class Games extends Component {
     return (
       <Container>
         <h1>Games</h1>
-        <h3>Your Games</h3> 
+        <Grid>
+          <Grid.Column floated="left" width={2}>
+            <h3>Your Games</h3>
+          </Grid.Column> 
+          <Grid.Column floated="right" width={2}>
+            {this.dropDownMenu()}
+          </Grid.Column>
+        </Grid>
         <Card.Group itemsPerRow={4}>{this.userLibrary()}</Card.Group>
         { showGames ? (
             <div>

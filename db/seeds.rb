@@ -1,11 +1,11 @@
   #1
   BoardGame.create(
-    title: "5 Second Rule",
+    title: "Carcassonne",
     base_game: "",
-    min_players: 3,
-    max_players: "",
-    time_needed: 20,
-    company: "Patch",
+    min_players: 2,
+    max_players: 5,
+    time_needed: 35,
+    company: "Z-Man Games",
   )
   #2
   BoardGame.create(
@@ -99,12 +99,12 @@
   )
   #12
   BoardGame.create(
-    title: "Carcassonne",
+    title: "5 Second Rule",
     base_game: "",
-    min_players: 2,
-    max_players: 5,
-    time_needed: 35,
-    company: "Z-Man Games",
+    min_players: 3,
+    max_players: "",
+    time_needed: 20,
+    company: "Patch",
   )
   #13
   BoardGame.create(

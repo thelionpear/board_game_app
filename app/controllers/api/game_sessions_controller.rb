@@ -1,4 +1,4 @@
-class GameSessionsController < ApplicationController
+class Api::GameSessionsController < ApplicationController
   before_action :set_user 
  
   def index

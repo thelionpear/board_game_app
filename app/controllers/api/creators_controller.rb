@@ -1,4 +1,4 @@
-class CreatorsController < ApplicationController
+class Api::CreatorsController < ApplicationController
   def index
   end
 

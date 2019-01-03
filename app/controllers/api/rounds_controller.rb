@@ -1,4 +1,4 @@
-class RoundsController < ApplicationController
+class Api::RoundsController < ApplicationController
   def index
   end
 

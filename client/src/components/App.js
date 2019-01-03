@@ -16,6 +16,7 @@ import Profile from './Profile';
 import Settings from './Settings'; 
 import Tools from './Tools'; 
 import Sessions from './Sessions'; 
+import BoardGameForm from './BoardGameForm';
 
 //AuthRoute is only for making it so the user can't hit the login or register components when logged in
 //use Protected route for pages you want the user to be logged in before viewing
@@ -39,6 +40,7 @@ class App extends Component {
             <ProtectedRoute exact path='/Tools' component={Tools} />
             <ProtectedRoute exact path='/Sessions' component={Sessions} />
             <ProtectedRoute exact path='/Profile' component={Profile} />
+            <ProtectedRoute exact path='/BoardGameForm' component={BoardGameForm} /> 
             <Route component={NoMatch} />
           </Switch>
         </FetchUser>

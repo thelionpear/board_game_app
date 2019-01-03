@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
+import { Header, Grid, Button, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
  
 class Home extends Component {
   
@@ -17,30 +17,36 @@ class Home extends Component {
         // If you accidentally passed it from a parent component, 
         // remove it from the DOM element.
         //these start to work when I remove Auth from AuthRoute in App.js
-        
-        <div>
-          <div>
-            <NavLink to="/Games">Games</NavLink>
-          </div>
-          <div>
-            <NavLink to="/Sessions">Sessions</NavLink> 
-          </div>
-          <div>
-            <NavLink to="/Friends">Friends</NavLink>
-          </div>
-          <div>
-            <NavLink to="/Tools">Tools</NavLink> 
-          </div>
-          <div>
-            <NavLink to="/Help">Help</NavLink>
-          </div>
-          <div>
-            <NavLink to="/Settings">Settings</NavLink>
-          </div>
-          <div>
-            <NavLink to="/Profile">Profile</NavLink>
-          </div>
-        </div>
+        <Container>
+          <Grid padded> 
+            <Grid.Column floated="left" width={3}>
+              <div>
+                <NavLink to="/Games">Games</NavLink>
+              </div>
+              <div>
+                <NavLink to="/Sessions">Sessions</NavLink> 
+              </div>
+              <div>
+                <NavLink to="/Friends">Friends</NavLink>
+              </div>
+              <div>
+                <NavLink to="/Tools">Tools</NavLink> 
+              </div>
+              <div>
+                <NavLink to="/Help">Help</NavLink>
+              </div>
+              <div>
+                <NavLink to="/Settings">Settings</NavLink>
+              </div>
+              <div>
+                <NavLink to="/Profile">Profile</NavLink>
+              </div>
+            </Grid.Column>
+            <Grid.Column floated="right" width={1}>
+              <Button as={ Link } to="/BoardGameForm" basic color="blue">Add A Game to Database</Button>
+            </Grid.Column>
+          </Grid>
+        </Container>
       );
     }
     return (
