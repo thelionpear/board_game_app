@@ -20,7 +20,7 @@ class BoardGameForm extends Component {
             time_needed 
           } = this.state 
     if (this.canBeSubmitted()) {
-      e.preventDefault(); 
+      // e.preventDefault(); 
       axios.post("/api/board_games", {
         title, 
         min_players,

@@ -1,6 +1,5 @@
 class Api::BoardGamesController < ApplicationController
-  before_action :set_board_game, except: [:index]
-
+  before_action :set_board_game, except: [:index, :create]
 
   def index
     render json: BoardGame.all
@@ -13,40 +12,39 @@ class Api::BoardGamesController < ApplicationController
   def create
     board_game = BoardGame.new(board_game_params)
     if board_game.save
-      render json: board_game 
+      render json: board_game
     else
       render json: board_game.errors
-    end 
+    end
   end
 
   def update
     if @board_game.update(board_game_params)
-      render json: @board_game 
-    else 
+      render json: @board_game
+    else
       render_error(@board_game)
-    end 
+    end
   end
 
-  def destroy 
-    binding.pry 
-    @board_game.destroy 
-  end 
+  def destroy
+    binding.pry
+    @board_game.destroy
+  end
 
-  private 
+  private
 
-  def set_board_game 
+  def set_board_game
     @board_game = BoardGame.find(params[:id])
-  end 
+  end
 
   def board_game_params
     params.require(:board_game).permit(
-    :title,
-    :min_players,
-    :max_players,
-    :base_game,
-    :time_needed,
-    :company 
+      :title,
+      :min_players,
+      :max_players,
+      :base_game,
+      :time_needed,
+      :company
     )
-  end 
-
+  end
 end
