@@ -19,7 +19,7 @@ class BoardGameForm extends Component {
             game_company, 
             time_needed 
           } = this.state 
-    if (this.canBeSubmitted) {
+    if (this.canBeSubmitted()) {
       e.preventDefault(); 
       axios.post("/api/board_games", {
         title, 
@@ -56,7 +56,7 @@ class BoardGameForm extends Component {
   const {title, max_players, min_players, game_company, time_needed } = this.state 
     return (
       <Container > 
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <Form.Field>
             <label>Title</label>
             <Form.Input 
@@ -104,7 +104,7 @@ class BoardGameForm extends Component {
             /> 
           </Form.Field>
         </Form>
-        <Button disabled={!isEnabled} onClick={() => this.handleSubmit}>Submit</Button>
+        <Button disabled={!isEnabled} type="submit" onClick={() => this.handleSubmit()}>Submit</Button>
       </Container>
     )
   }
