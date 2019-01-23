@@ -8,7 +8,7 @@ class BoardGameForm extends Component {
   state = { title: "", 
             max_players: "", 
             min_players: "", 
-            game_company: "", 
+            company: "", 
             time_needed: "",
           }
   
@@ -16,7 +16,7 @@ class BoardGameForm extends Component {
     const { title,
             min_players, 
             max_players, 
-            game_company, 
+            company, 
             time_needed 
           } = this.state 
     if (this.canBeSubmitted()) {
@@ -25,7 +25,7 @@ class BoardGameForm extends Component {
         title, 
         min_players,
         max_players,
-        game_company,
+        company,
         time_needed
       }).then(res => {
         console.log(res); 
@@ -53,7 +53,7 @@ class BoardGameForm extends Component {
 
   render() {
   const isEnabled = this.canBeSubmitted() 
-  const {title, max_players, min_players, game_company, time_needed } = this.state 
+  const {title, max_players, min_players, company, time_needed } = this.state 
     return (
       <Container > 
         <Form onSubmit={this.handleSubmit}>
@@ -89,8 +89,8 @@ class BoardGameForm extends Component {
           <Form.Field>
             <label>Game Company</label>
             <Form.Input 
-              name="game_company"
-              value={game_company}
+              name="company"
+              value={company}
               onChange={this.handleChange}
             />
           </Form.Field>
