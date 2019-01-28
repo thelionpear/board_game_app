@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { setFlash } from '../reducers/flash'
 
 class BoardGameForm extends Component {
   
@@ -19,6 +20,7 @@ class BoardGameForm extends Component {
             company, 
             time_needed 
           } = this.state 
+    const { dispatch } = this.props 
     if (this.canBeSubmitted()) {
       // e.preventDefault(); 
       axios.post("/api/board_games", {
@@ -29,8 +31,15 @@ class BoardGameForm extends Component {
         time_needed
       }).then(res => {
         console.log(res); 
+        if (res.status === 200) {
+          this.props.history.push('/');
+          dispatch(setFlash('Game added succesfully', 'green'))
+        }
+        else {
+          dispatch(setFlash('Failed to Add Game to Database', 'red'))
+        }
       })
-      return; 
+      return;
     }
   }
   
