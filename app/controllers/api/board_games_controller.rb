@@ -27,7 +27,7 @@ class Api::BoardGamesController < ApplicationController
   end
 
   def destroy
-    binding.pry
+    # binding.pry
     @board_game.destroy
   end
 
