@@ -14,14 +14,24 @@ import "react-datepicker/dist/react-datepicker.css";
 
 class RoundForm extends Component { 
   
-  state = { date: "", 
+  state = { 
             players: "", 
             scores: "", 
             game: "", 
             winner: "", 
+            startDate: new Date()
   }
 
+  handleChange = this.handleChange
+
+  handleChange= (date) => {
+    this.setState({
+      startDate: date
+    });
+  }
+  
   render() {
+
     return (
       <Container>
         <DatePicker
