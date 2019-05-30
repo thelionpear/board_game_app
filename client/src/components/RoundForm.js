@@ -19,14 +19,16 @@ class RoundForm extends Component {
             scores: "", 
             game: "", 
             winner: "", 
-            startDate: new Date()
+            startDate: new Date(),
+            date: "", 
   }
 
   handleChange = this.handleChange
 
   handleChange= (date) => {
     this.setState({
-      startDate: date
+      startDate: date,
+      date: date 
     });
   }
   
