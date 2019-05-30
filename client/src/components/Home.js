@@ -24,7 +24,7 @@ class Home extends Component {
                 <NavLink to="/Games">Games</NavLink>
               </div>
               <div>
-                <NavLink to="/Sessions">Sessions</NavLink> 
+                <NavLink to="/RoundForm">RoundForm</NavLink> 
               </div>
               <div>
                 <NavLink to="/Friends">Friends</NavLink>

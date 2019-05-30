@@ -9,6 +9,8 @@ import { Form, Button, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux'; 
 import { axios } from 'axios'; 
 import { setFlash } from '../reducers/flash'; 
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 class RoundForm extends Component { 
   
@@ -22,10 +24,11 @@ class RoundForm extends Component {
   render() {
     return (
       <Container>
+        <DatePicker
+          selected={this.state.startDate}
+          onChange={this.handleChange}
+        />          
         <Form>
-          <Form.Field>
-            <label>DatePicker</label>
-          </Form.Field>
           <Form.Field>
             <label>Board Game Dropdown</label>
           </Form.Field>
@@ -40,3 +43,9 @@ class RoundForm extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return { user: state.user };
+};
+
+export default connect(mapStateToProps)(RoundForm);
