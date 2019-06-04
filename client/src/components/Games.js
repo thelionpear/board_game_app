@@ -39,7 +39,7 @@ class Games extends Component {
         console.log(res.data)
         this.setState({games: res.data});
       })
-    axios.get(`/api/users/${userId}/user_board_games/`)
+    axios.get(`/api/users/${userId}/board_games/`)
       .then(res => {
         console.log(res.data); 
         this.setState({user_games: res.data});
@@ -53,7 +53,7 @@ class Games extends Component {
 
   removeGame = (id) => {
     const userId = this.props.user.id 
-    axios.delete(`/api/users/${userId}/user_board_games/${id}`)
+    axios.delete(`/api/users/${userId}/board_games/${id}`)
       .then(res => {
         console.log(res);
       })
@@ -61,7 +61,7 @@ class Games extends Component {
 
   addGame = (id) => {
     const userId = this.props.user.id 
-    axios.post(`/api/users/${userId}/user_board_games/${id}`, { userId, id })
+    axios.post(`/api/users/${userId}/board_games/${id}`, { userId, id })
       .then(res => {
         console.log(res);
       })

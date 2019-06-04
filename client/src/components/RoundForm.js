@@ -7,7 +7,7 @@
 import React, { Component } from 'react'; 
 import { Form, Button, Container } from 'semantic-ui-react'; 
 import { connect } from 'react-redux'; 
-import { axios } from 'axios'; 
+import axios from 'axios'; 
 import { setFlash } from '../reducers/flash'; 
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,12 +17,22 @@ class RoundForm extends Component {
   state = { 
             players: "", 
             scores: "", 
-            game: "", 
+            user_games: "", 
             winner: "", 
             startDate: new Date(),
             date: "", 
   }
 
+  componentDidMount() {
+    const userId = this.props.user.id 
+    axios.get(`/api/users/${userId}/board_games/`)
+      .then(res => {
+        console.log(res.data);
+        this.setState({user_games: res.data});
+      })
+  }
+
+//handle change of the react-datepicker
   handleChange = this.handleChange
 
   handleChange= (date) => {
@@ -31,6 +41,13 @@ class RoundForm extends Component {
       date: date 
     });
   }
+
+//grab the user's board games 
+
+
+
+//we don't have players yet, but when we do, need an axios.get
+//to grab them 
   
   render() {
 
