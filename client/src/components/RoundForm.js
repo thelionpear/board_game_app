@@ -32,18 +32,15 @@ class RoundForm extends Component {
     })
   }
   
-  //takes games and makes options out of them
-  // gameOptionsDropdown = () => {
-  //   const {user_games} = this.state 
-  //   return user_games.map( user_games =>
-  //     <Dropdown 
-  //     key: {user_games.title}, 
-  //     text: {user_games.title},
-  //     value: {user_games.title},
-  //     /> 
-  //   ) 
-    
-  // }
+  // takes games and makes options out of them
+  gameOptions = () => {
+    const {user_games} = this.state 
+    return user_games.map( games => ({
+      key: games.id, 
+      text: games.title,
+      value: games.title,
+    })) 
+  }
   
 
 //handle change of the react-datepicker
@@ -62,7 +59,6 @@ class RoundForm extends Component {
 //to grab them 
   
   render() {
-    const {user_games} = this.state 
     return (
       <Container>
         <DatePicker
@@ -75,7 +71,7 @@ class RoundForm extends Component {
               placeholder="Select Game"
               fluid 
               selection
-              options={user_games.title}
+              options={this.gameOptions()}
             />
           </Form.Field>
           <Form.Field>
