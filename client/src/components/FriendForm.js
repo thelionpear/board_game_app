@@ -1,11 +1,14 @@
-import React from 'react'; 
-import { Form, Container } from 'semantic-ui-react';
+import React, { Component } from 'react'; 
+import { Button, Form, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import { setFlash } from '../reducers/flash';
+
 
 class FriendForm extends Component {
   
   state = {
-    name = ""
+    name: ""
   }
 
   handleChange = (e) => {
@@ -14,13 +17,33 @@ class FriendForm extends Component {
   }
 
   canBeSubmitted = () => {
-    const { name } = this.state 
+    const { name } = this.state; 
     return (
       name.length > 0
     );
   }
 
-  //handlesubmit function 
+  handleSubmit = (e) => {
+    const { name } = this.state 
+    const { dispatch } = this.props
+    const userId = this.props.user.id 
+    if (this.canBeSubmitted()) {
+      axios.post(`/api/users/${userId}/friends`, {
+        name,
+      })
+      .then(res => {
+        console.log(res);
+        if (res.status === 200) {
+          this.props.history.push('/Friends');
+          dispatch(setFlash('Friend added succesfully', 'green'))
+        }
+        else {
+          dispatch(setFlash('Failed to add friend to database', 'red'))
+        }
+      })
+      return 
+    }
+  }
 
   render() {
     const { name } = this.state
@@ -31,7 +54,7 @@ class FriendForm extends Component {
           <Form.Field>
             <label>Name</label>
             <Form.Input
-              name="Name"
+              name="name"
               value={name}
               onChange={this.handleChange}
               required
@@ -43,3 +66,9 @@ class FriendForm extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return { user: state.user };
+}
+
+export default connect(mapStateToProps)(FriendForm);

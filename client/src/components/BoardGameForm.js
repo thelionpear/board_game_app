@@ -61,7 +61,7 @@ class BoardGameForm extends Component {
 
 
   render() {
-  const isEnabled = this.canBeSubmitted() 
+  const { isEnabled } = this.canBeSubmitted() 
   const {title, max_players, min_players, company, time_needed } = this.state 
     return (
       <Container > 
