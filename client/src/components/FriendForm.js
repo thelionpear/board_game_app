@@ -16,18 +16,18 @@ class FriendForm extends Component {
     this.setState({ [name]: value })
   }
 
-  canBeSubmitted = () => {
-    const { name } = this.state; 
-    return (
-      name.length > 0
-    );
-  }
+  // canBeSubmitted = () => {
+  //   const { name } = this.state; 
+  //   return (
+  //     name.length > 0
+  //   );
+  // }
 
   handleSubmit = (e) => {
     const { name } = this.state 
     const { dispatch } = this.props
     const userId = this.props.user.id 
-    if (this.canBeSubmitted()) {
+    // if (this.canBeSubmitted()) {
       axios.post(`/api/users/${userId}/friends`, {
         name,
       })
@@ -42,12 +42,12 @@ class FriendForm extends Component {
         }
       })
       return 
-    }
+    // }
   }
 
   render() {
     const { name } = this.state
-    const { isEnabled } = this.canBeSubmitted()
+    // const { isEnabled } = this.canBeSubmitted()
     return (
       <Container>
         <Form>
@@ -61,7 +61,8 @@ class FriendForm extends Component {
             />
           </Form.Field>
         </Form>
-        <Button disabled={!isEnabled} type="submit" onClick={() => this.handleSubmit()}>Submit</Button>
+        {/* <Button disabled={!isEnabled} type="submit" onClick={() => this.handleSubmit()}>Submit</Button> */}
+        <Button type="submit" onClick={() => this.handleSubmit()}>Submit</Button>
       </Container>
     )
   }
