@@ -178,4 +178,7 @@
     time_needed: 45, 
     company: "Rio Grande Games",
   )
+  Friend.create(
+    manual_friend_name:"Trevor",
+  )
   puts "database seeded" 

@@ -32,7 +32,7 @@ class Api::FriendsController < ApplicationController
 
   def friend_params
     params.require(:friend).permit(
-      :name
+      :manual_friend_name
     )
   end
 end
