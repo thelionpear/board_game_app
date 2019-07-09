@@ -8,7 +8,7 @@ class Api::FriendsController < ApplicationController
   end
 
   def create
-    friend = Friend.new
+    friend = Friend.new(friend_params)
     if friend.save
       render json: friend
     else

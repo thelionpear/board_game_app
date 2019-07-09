@@ -35,22 +35,22 @@ class Friends extends Component {
     switch(sort) {
       case 'A-Z':
       friends.sort(function(friend1, friend2){
-        if(friend1.name < friend2.name) {return -1; }
-        if(friend1.name > friend2.name) {return 1; }
+        if(friend1.manual_friend_name < friend2.manual_friend_name) {return -1; }
+        if(friend1.manual_friend_name > friend2.manual_friend_name) {return 1; }
         return 0; 
       });
       break; 
       case 'Z-A': 
       friends.sort(function(friend1, friend2){
-        if(friend1.name < friend2.name) {return -1; }
-        if(friend1.name > friend2.name) {return 1; }
+        if(friend1.manual_friend_name < friend2.manual_friend_name) {return -1; }
+        if(friend1.manual_friend_name > friend2.manual_friend_name) {return 1; }
         return 0;
       });
       break; 
       default: 
       friends.sort(function(friend1, friend2){
-        if(friend1.name < friend2.name) {return -1; }
-        if(friend1.name > friend2.name) {return 1; }
+        if(friend1.manual_friend_name < friend2.manual_friend_name) {return -1; }
+        if(friend1.manual_friend_name > friend2.manual_friend_name) {return 1; }
         return 0; 
       });
     }
@@ -59,7 +59,7 @@ class Friends extends Component {
   friendsList = () => {
     const { friends } = this.state 
     return friends.map( friend => 
-      <div key={friend.id}>{friend.name}</div>)
+      <div key={friend.id}>{friend.manual_friend_name}</div>)
   }
 
   render() {

@@ -180,5 +180,25 @@
   )
   Friend.create(
     manual_friend_name:"Trevor",
+    user_id: 1,
+    friend_id: "", 
+  )
+  #1
+  User.create(
+    name: "Test",
+    email: "test@test.com",
+    password: "password"
+  )
+  #2
+  User.create(
+    name: "Michelle",
+    email: "test2@test.com",
+    password: "password"
+  )
+  #3
+  User.create(
+    name: "Trevor",
+    email: "test3@test.com",
+    password: "password"
   )
   puts "database seeded" 

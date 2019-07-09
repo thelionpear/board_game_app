@@ -8,7 +8,9 @@ import { setFlash } from '../reducers/flash';
 class FriendForm extends Component {
   
   state = {
-    manual_friend_name: ""
+    manual_friend_name: "",
+    friend_id: null,
+    user_id: this.props.user.id
   }
 
   handleChange = (e) => {
@@ -24,12 +26,14 @@ class FriendForm extends Component {
   // }
 
   handleSubmit = (e) => {
-    const { manual_friend_name } = this.state 
+    const { manual_friend_name, friend_id, user_id } = this.state 
     const { dispatch } = this.props
     const userId = this.props.user.id 
     // if (this.canBeSubmitted()) {
       axios.post(`/api/users/${userId}/friends`, {
         manual_friend_name,
+        user_id, 
+        friend_id 
       })
       .then(res => {
         console.log(res);
